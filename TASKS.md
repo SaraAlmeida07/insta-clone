@@ -4,41 +4,44 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 1 - Setup do Projeto
 
-- [ ] Inicializar projeto com Vue 3 + Vite
-- [ ] Estrutura de pastas por dominio: `components/`, `composables/`, `layouts/`, `router/`, `services/`, `stores/`, `views/`
-- [ ] Vue Router com rota curinga `/:pathMatch(.*)*` servindo uma view `NotFound`
-- [ ] Pinia para estado compartilhado (`auth`, `feed`)
-- [ ] Tema global em `src/assets/styles/theme.css` (importado no `main.js` apos Bootstrap)
-- [ ] Cliente axios centralizado em `src/services/api.js`:
-  - baseURL lida de `import.meta.env.VITE_API_URL`
-  - interceptor de request injeta `Authorization: Bearer <token>` quando existe token
-  - interceptor de response trata `401`: limpa token, redireciona para `/login`
-- [ ] `.env.example` com `VITE_API_URL=http://localhost:8000/api`
-- [ ] `.dockerignore` excluindo `node_modules`, `dist`, `.env`, mantendo `.env.example`
+- [x] Inicializar projeto com Vue 3 + Vite
+- [x] Estrutura de pastas por dominio: `components/`, `composables/`, `layouts/`, `router/`, `services/`, `stores/`, `views/`
+- [x] Vue Router com rota curinga `/:pathMatch(.*)*` servindo uma view `NotFound`
+- [x] Pinia para estado compartilhado (`auth`, `feed`)
+- [x] Tema global em `src/assets/styles/theme.css` (importado no `main.js` apos Bootstrap)
+- [x] Cliente axios centralizado em `src/services/api.js`:
+  - [x] baseURL lida de `import.meta.env.VITE_API_URL`
+  - [x] interceptor de request injeta `Authorization: Bearer <token>` quando existe token
+  - [x] interceptor de response trata `401`: limpa token, redireciona para `/login`
+- [x] `.env.example` com `VITE_API_URL=http://localhost:8000/api`
+- [x] `.dockerignore` excluindo `node_modules`, `dist`, `.env`, mantendo `.env.example`
+
 
 ## 2 - Autenticacao
 
-- [ ] Tela `/login` com campos `email` e `password`
-- [ ] Tela `/cadastro` com campos `name`, `username`, `email`, `password`, `password_confirmation`
-- [ ] Store `auth` (Pinia) com estado `user`, `token`, `isAuthenticated`, actions `login`, `register`, `logout`, `fetchMe`
-- [ ] `POST /auth/login` devolve `access_token` e `user`; salvar token em `localStorage` com chave fixa (ex.: `instaclone.token`)
-- [ ] `POST /auth/register` cria conta e ja autentica
-- [ ] `POST /auth/logout` limpa sessao local mesmo se o token ja estiver invalido
-- [ ] `GET /auth/me` hidrata o usuario atual a partir do token salvo ao entrar em rota protegida
-- [ ] Guards de rota:
-  - `requiresAuth`: sem token, redireciona para `/login`
-  - `requiresGuest`: com token, redireciona para `/feed`
+- [x] Tela `/login` com campos `email` e `password`
+- [x] Tela `/cadastro` com campos `name`, `username`, `email`, `password`, `password_confirmation`
+- [x] Store `auth` (Pinia) com estado `user`, `token`, `isAuthenticated`, actions `login`, `register`, `logout`, `fetchMe`
+- [x] `POST /auth/login` devolve `access_token` e `user`; salvar token em `localStorage` com chave fixa (ex.: `instaclone.token`)
+- [x] `POST /auth/register` cria conta e ja autentica
+- [x] `POST /auth/logout` limpa sessao local mesmo se o token ja estiver invalido
+- [x] `GET /auth/me` hidrata o usuario atual a partir do token salvo ao entrar em rota protegida
+- [x] Guards de rota:
+  - [x] `requiresAuth`: sem token, redireciona para `/login`
+  - [x] `requiresGuest`: com token, redireciona para `/feed`
+
 - [ ] Mensagens de erro exibidas inline abaixo do formulario
 
 ## 3 - Layout e Navegacao
 
-- [ ] `AuthLayout` para telas de visitante (`/login`, `/cadastro`)
-- [ ] `AppLayout` para area autenticada
-- [ ] Shell autenticado responsivo:
-  - mobile: barra de navegacao inferior fixa
-  - desktop: sidebar lateral
-- [ ] Entradas de navegacao: `Home` (`/feed`), `Buscar` (`/descobrir`), `Criar` (`/criar`), `Perfil` (`/perfil`)
-- [ ] `RouterView` usando `v-slot="{ Component }"` + `<component :is="Component" />` para troca de views
+- [x] `AuthLayout` para telas de visitante (`/login`, `/cadastro`)
+- [x] `AppLayout` para area autenticada
+- [x] Shell autenticado responsivo:
+  - [x] mobile: barra de navegacao inferior fixa
+  - [x] desktop: sidebar lateral
+- [x] Entradas de navegacao: `Home` (`/feed`), `Buscar` (`/descobrir`), `Criar` (`/criar`), `Perfil` (`/perfil`)
+- [x] `RouterView` usando `v-slot="{ Component }"` + `<component :is="Component" />` para troca de views
+
 
 ## 4 - Feed (`/feed`)
 
