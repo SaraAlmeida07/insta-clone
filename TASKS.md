@@ -19,28 +19,28 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 2 - Autenticacao
 
-- [x] Tela `/login` com campos `email` e `password`
-- [x] Tela `/cadastro` com campos `name`, `username`, `email`, `password`, `password_confirmation`
-- [x] Store `auth` (Pinia) com estado `user`, `token`, `isAuthenticated`, actions `login`, `register`, `logout`, `fetchMe`
-- [x] `POST /auth/login` devolve `access_token` e `user`; salvar token em `localStorage` com chave fixa (ex.: `instaclone.token`)
-- [x] `POST /auth/register` cria conta e ja autentica
-- [x] `POST /auth/logout` limpa sessao local mesmo se o token ja estiver invalido
-- [x] `GET /auth/me` hidrata o usuario atual a partir do token salvo ao entrar em rota protegida
-- [x] Guards de rota:
-  - [x] `requiresAuth`: sem token, redireciona para `/login`
-  - [x] `requiresGuest`: com token, redireciona para `/feed`
+- [ ] Tela `/login` com campos `email` e `password`
+- [ ] Tela `/cadastro` com campos `name`, `username`, `email`, `password`, `password_confirmation`
+- [ ] Store `auth` (Pinia) com estado `user`, `token`, `isAuthenticated`, actions `login`, `register`, `logout`, `fetchMe`
+- [ ] `POST /auth/login` devolve `access_token` e `user`; salvar token em `localStorage` com chave fixa (ex.: `instaclone.token`)
+- [ ] `POST /auth/register` cria conta e ja autentica
+- [ ] `POST /auth/logout` limpa sessao local mesmo se o token ja estiver invalido
+- [ ] `GET /auth/me` hidrata o usuario atual a partir do token salvo ao entrar em rota protegida
+- [ ] Guards de rota:
+  - [ ] `requiresAuth`: sem token, redireciona para `/login`
+  - [ ] `requiresGuest`: com token, redireciona para `/feed`
 
 - [ ] Mensagens de erro exibidas inline abaixo do formulario
 
 ## 3 - Layout e Navegacao
 
-- [x] `AuthLayout` para telas de visitante (`/login`, `/cadastro`)
-- [x] `AppLayout` para area autenticada
-- [x] Shell autenticado responsivo:
-  - [x] mobile: barra de navegacao inferior fixa
-  - [x] desktop: sidebar lateral
-- [x] Entradas de navegacao: `Home` (`/feed`), `Buscar` (`/descobrir`), `Criar` (`/criar`), `Perfil` (`/perfil`)
-- [x] `RouterView` usando `v-slot="{ Component }"` + `<component :is="Component" />` para troca de views
+- [ ] `AuthLayout` para telas de visitante (`/login`, `/cadastro`)
+- [ ] `AppLayout` para area autenticada
+- [ ] Shell autenticado responsivo:
+  - [ ] mobile: barra de navegacao inferior fixa
+  - [ ] desktop: sidebar lateral
+- [ ] Entradas de navegacao: `Home` (`/feed`), `Buscar` (`/descobrir`), `Criar` (`/criar`), `Perfil` (`/perfil`)
+- [ ] `RouterView` usando `v-slot="{ Component }"` + `<component :is="Component" />` para troca de views
 
 
 ## 4 - Feed (`/feed`)
