@@ -19,7 +19,7 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 2 - Autenticacao
 
-- [ ] Tela `/login` com campos `email` e `password`
+- [x] Tela `/login` com campos `email` e `password`
 - [ ] Tela `/cadastro` com campos `name`, `username`, `email`, `password`, `password_confirmation`
 - [ ] Store `auth` (Pinia) com estado `user`, `token`, `isAuthenticated`, actions `login`, `register`, `logout`, `fetchMe`
 - [ ] `POST /auth/login` devolve `access_token` e `user`; salvar token em `localStorage` com chave fixa (ex.: `instaclone.token`)
