@@ -1,12 +1,34 @@
 <script setup>
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
+
+const auth = useAuthStore();
+const router = useRouter();
 
 const email = ref('');
 const password = ref('');
+const error = ref('');
+const loading = ref(false);
 
-const handleLogin = () => {
-  console.log('Tentando logar com:', email.value, password.value);
-  // Futuramente chamaremos a store de auth aqui
+const handleLogin = async () => {
+  try {
+    error.value = '';
+    loading.value = true;
+    console.log('Tentando logar com:', email.value);
+    
+    await auth.login({
+      email: email.value,
+      password: password.value
+    });
+
+    router.push('/feed');
+  } catch (err) {
+    console.error('Erro no login:', err);
+    error.value = 'E-mail ou senha incorretos.';
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
@@ -16,6 +38,10 @@ const handleLogin = () => {
       <h1 class="instagram-logo mb-4 fs-2">InstaClone</h1>
       
       <form @submit.prevent="handleLogin">
+        <div v-if="error" class="alert alert-danger py-2 small mb-3" role="alert">
+          {{ error }}
+        </div>
+
         <div class="mb-3">
           <input 
             v-model="email"
@@ -23,6 +49,7 @@ const handleLogin = () => {
             class="form-control custom-input" 
             placeholder="E-mail"
             required
+            :disabled="loading"
           >
         </div>
         
@@ -33,11 +60,12 @@ const handleLogin = () => {
             class="form-control custom-input" 
             placeholder="Senha"
             required
+            :disabled="loading"
           >
         </div>
         
-        <button type="submit" class="btn btn-primary w-100 fw-bold">
-          Entrar
+        <button type="submit" class="btn btn-primary w-100 fw-bold" :disabled="loading">
+          {{ loading ? 'Entrando...' : 'Entrar' }}
         </button>
       </form>
 

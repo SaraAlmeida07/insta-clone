@@ -1,24 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter();
+const auth = useAuthStore();
 
 const name = ref('');
 const username = ref('');
 const email = ref('');
 const password = ref('');
 const password_confirmation = ref('');
+const error = ref('');
+const loading = ref(false);
 
-const handleRegister = () => {
-  console.log('Registering:', {
-    name: name.value,
-    username: username.value,
-    email: email.value,
-    password: password.value,
-    password_confirmation: password_confirmation.value
-  });
-  // Aqui futuramente chamaremos a API
+const handleRegister = async () => {
+  try {
+    error.value = '';
+    loading.value = true;
+    
+    await auth.register({
+      name: name.value,
+      username: username.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: password_confirmation.value
+    });
+
+    router.push('/feed');
+  } catch (err: any) {
+    console.error('Erro no cadastro:', err);
+    error.value = err.response?.data?.message || 'Erro ao realizar cadastro. Verifique os dados.';
+  } finally {
+    loading.value = false;
+  }
 };
 
 const goToLogin = () => {
@@ -35,6 +50,10 @@ const goToLogin = () => {
       </div>
 
       <form @submit.prevent="handleRegister" class="register-form">
+        <div v-if="error" class="alert alert-danger py-2 small mb-3" role="alert">
+          {{ error }}
+        </div>
+
         <div class="input-group">
           <input 
             type="email" 
@@ -42,6 +61,7 @@ const goToLogin = () => {
             placeholder="Email" 
             required
             id="email"
+            :disabled="loading"
           >
         </div>
 
@@ -52,6 +72,7 @@ const goToLogin = () => {
             placeholder="Nome completo" 
             required
             id="name"
+            :disabled="loading"
           >
         </div>
 
@@ -62,6 +83,7 @@ const goToLogin = () => {
             placeholder="Nome de usuário" 
             required
             id="username"
+            :disabled="loading"
           >
         </div>
 
@@ -72,6 +94,7 @@ const goToLogin = () => {
             placeholder="Senha" 
             required
             id="password"
+            :disabled="loading"
           >
         </div>
 
@@ -82,10 +105,13 @@ const goToLogin = () => {
             placeholder="Confirme a senha" 
             required
             id="password_confirmation"
+            :disabled="loading"
           >
         </div>
 
-        <button type="submit" class="btn-register">Cadastre-se</button>
+        <button type="submit" class="btn-register" :disabled="loading">
+          {{ loading ? 'Cadastrando...' : 'Cadastre-se' }}
+        </button>
       </form>
 
       <div class="terms">

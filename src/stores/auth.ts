@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import api from '../services/api';
+import router from '../router';
+import { ROUTE_NAMES } from '../router/routeNames';
 
 export const useAuthStore = defineStore('auth', () => {
   // --- ESTADO (State) ---
@@ -55,11 +57,18 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // Função para deslogar
-  function logout() {
-    token.value = null;
-    user.value = null;
-    localStorage.removeItem('instaclone.token');
-    localStorage.removeItem('instaclone.user');
+  async function logout() {
+    try {
+      await api.post('/auth/logout');
+    } catch (error) {
+      console.error('Erro ao deslogar no backend:', error);
+    } finally {
+      token.value = null;
+      user.value = null;
+      localStorage.removeItem('instaclone.token');
+      localStorage.removeItem('instaclone.user');
+      router.push({ name: ROUTE_NAMES.LOGIN });
+    }
   }
 
   // Função para buscar os dados do usuário logado (perfil)

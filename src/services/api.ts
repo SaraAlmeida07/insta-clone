@@ -32,13 +32,14 @@ api.interceptors.response.use(
     // Se vier erro (4xx, 5xx)
     (error) => {
         const status = error.response?.status;
+        const isAuthRequest = error.config.url.includes('/auth/login') || error.config.url.includes('/auth/register');
 
-        // Erro 401: Tenta fazer login de novo!
-        if (status === 401) {
+        // Erro 401: Tenta fazer login de novo (apenas se não for uma tentativa de login/cadastro)
+        if (status === 401 && !isAuthRequest) {
             alert('Sua sessão expirou. Faça login novamente.');
             localStorage.removeItem('instaclone.token'); // Tira o token quebrado
             localStorage.removeItem('instaclone.user');  // Tira o usuário
-            router.push('/'); // Joga ele pra tela de login (que agora é a raiz)
+            router.push('/'); // Joga ele pra tela de login
         }
 
         return Promise.reject(error);
