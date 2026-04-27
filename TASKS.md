@@ -46,26 +46,26 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 - [x] Entradas de navegacao: `Home` (`/feed`), `Buscar` (`/discover`), `Criar` (`/create`), `Perfil` (`/profile`)
 - [x] Todas as navegacoes por nome devem usar `ROUTE_NAMES`, nao strings literais em `name: '...'`
 - [x] `RouterView` usando `v-slot="{ Component }"` + `<component :is="Component" />` para troca de views
-- [ ] `AppIcon` deve aceitar prop `filled` para desenhar corretamente icones preenchidos, incluindo coracao curtido
+- [x] `AppIcon` deve aceitar prop `filled` para desenhar corretamente icones preenchidos, incluindo coracao curtido
 
 ## 4 - Feed (`/feed`)
 
-- [ ] `GET /feed` retorna `{ items: [...], next_cursor: string|null }`
-- [ ] Store `feed` normaliza os posts em um dicionario por id e mantem uma lista ordenada
-- [ ] Actions do store: `fetchFeed`, `loadMoreFeed(cursor)`, `toggleLike(postId)`, `addComment(postId, body)`, `createPost(formData)`
-- [ ] `normalizeComment` deve viver em `stores/feed.js`
-- [ ] `defaultAuthor()` deve viver em `stores/profileUtils.js` para evitar duplicar o autor fallback em post/comentario
-- [ ] Botao "carregar mais" visivel enquanto `next_cursor !== null`
-- [ ] Card de post exibe:
-  - avatar + username do autor (link para `/profile?user=<username>`)
-  - imagem do post
-  - contador de curtidas e botao de like
-  - legenda
-  - data relativa (ex.: "ha 2h")
-  - contador de comentarios
-  - campo inline para adicionar comentario
-- [ ] Curtir: `POST /posts/:id/like`. Descurtir: `DELETE /posts/:id/unlike`. Atualizar contador de forma otimista
-- [ ] Comentar inline: `POST /posts/:id/comments` com `{ body }`
+- [x] `GET /feed` retorna `{ items: [...], next_cursor: string|null }`
+- [x] Store `feed` normaliza os posts em um dicionario por id e mantem uma lista ordenada
+- [x] Actions do store: `fetchFeed`, `loadMoreFeed(cursor)`, `toggleLike(postId)`, `addComment(postId, body)`, `createPost(formData)`
+- [x] `normalizeComment` deve viver em `stores/feed.js`
+- [x] `defaultAuthor()` deve viver em `stores/profileUtils.js` para evitar duplicar o autor fallback em post/comentario
+- [x] Botao "carregar mais" visivel enquanto `next_cursor !== null`
+- [x] Card de post exibe:
+  - [x] avatar + username do autor (link para `/profile?user=<username>`)
+  - [x] imagem do post
+  - [x] contador de curtidas e botao de like
+  - [x] legenda
+  - [x] data relativa (ex.: "ha 2h")
+  - [x] contador de comentarios
+  - [x] campo inline para adicionar comentario
+- [x] Curtir: `POST /posts/:id/like`. Descurtir: `DELETE /posts/:id/unlike`. Atualizar contador de forma otimista
+- [x] Comentar inline: `POST /posts/:id/comments` com `{ body }`
 
 ## 5 - Descobrir (`/discover`)
 
@@ -82,14 +82,14 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 6 - Criar Post (`/create`)
 
-- [ ] Input `<input type="file">` aceita apenas `image/jpeg`, `image/jpg`, `image/png`, `image/webp`
-- [ ] Limite de 5 MB (validar no cliente antes do upload)
-- [ ] Preview local com `URL.createObjectURL`; revogar o blob ao trocar imagem, limpar ou desmontar
-- [ ] Logica de file picker, preview blob e cleanup deve vir de `composables/useImageUpload.js`
-- [ ] Campo de legenda com limite de `2200` caracteres e contador visivel
-- [ ] Botao de publicar desabilitado enquanto imagem ou legenda estao ausentes
-- [ ] `POST /posts` com `FormData` contendo `image` e `caption`
-- [ ] Exibir feedback de sucesso (redirecionar para `/feed`) e mensagens de erro
+- [x] Input `<input type="file">` aceita apenas `image/jpeg`, `image/jpg`, `image/png`, `image/webp`
+- [x] Limite de 5 MB (validar no cliente antes do upload)
+- [x] Preview local com `URL.createObjectURL`; revogar o blob ao trocar imagem, limpar ou desmontar
+- [x] Logica de file picker, preview blob e cleanup deve vir de `composables/useImageUpload.js`
+- [x] Campo de legenda com limite de `2200` caracteres e contador visivel
+- [x] Botao de publicar desabilitado enquanto imagem ou legenda estao ausentes
+- [x] `POST /posts` com `FormData` contendo `image` e `caption`
+- [x] Exibir feedback de sucesso (redirecionar para `/feed`) e mensagens de erro
 
 ## 7 - Perfil (`/profile` e `/profile?user=<username>`)
 

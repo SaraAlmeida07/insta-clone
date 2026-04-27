@@ -40,12 +40,17 @@ const routes = [
       {
         path: 'create',
         name: ROUTE_NAMES.CREATE,
-        component: () => import('../views/HomeView.vue') // Temporarily reuse HomeView
+        component: () => import('../views/CreatePostView.vue')
       },
       {
         path: 'profile',
         name: ROUTE_NAMES.PROFILE,
         component: () => import('../views/HomeView.vue') // Temporarily reuse HomeView
+      },
+      {
+        path: 'posts/:postId',
+        name: ROUTE_NAMES.POST_DETAILS,
+        component: () => import('../views/HomeView.vue') // Placeholder
       }
     ]
   },
@@ -61,19 +66,18 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   const auth = useAuthStore()
   
-  // Se a rota pai ou a própria rota exige auth
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const requiresGuest = to.matched.some(record => record.meta.requiresGuest)
 
   if (requiresAuth && !auth.isAuthenticated) {
-    next({ name: ROUTE_NAMES.LOGIN })
-  } else if (requiresGuest && auth.isAuthenticated) {
-    next({ name: ROUTE_NAMES.FEED })
-  } else {
-    next()
+    return { name: ROUTE_NAMES.LOGIN }
+  } 
+  
+  if (requiresGuest && auth.isAuthenticated) {
+    return { name: ROUTE_NAMES.FEED }
   }
 })
 
