@@ -60,7 +60,7 @@ const handleLogout = async () => {
     <main class="main-content">
       <RouterView v-slot="{ Component }">
         <Transition name="fade" mode="out-in">
-          <component :is="Component" />
+          <component :is="Component" :key="$route.fullPath" />
         </Transition>
       </RouterView>
     </main>

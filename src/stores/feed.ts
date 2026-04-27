@@ -34,24 +34,48 @@ export const useFeedStore = defineStore('feed', () => {
   const nextCursor = ref<string | null>(null);
   const loading = ref(false);
 
-  const allPosts = computed(() => 
+  const allPosts = computed(() =>
     postIds.value
       .map(id => postsById.value[id])
       .filter((post): post is Post => !!post)
   );
 
+  const API_BASE = import.meta.env.VITE_API_URL.replace('/api', '');
+
+  /**
+   * Garante que a URL da imagem aponte para o backend
+   */
+  function formatUrl(url: string | null, isAvatar = false) {
+    if (!url) {
+      return isAvatar
+        ? 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+        : 'https://placehold.co/600x600/262626/white?text=Imagem+indisponível';
+    }
+    if (url.startsWith('http')) return url;
+    return `${API_BASE}${url.startsWith('/') ? '' : '/'}${url}`;
+  }
+
   async function fetchFeed() {
     try {
       loading.value = true;
       const response = await api.get('/feed');
-      const { items, next_cursor } = response.data;
+
+      // O Laravel pode retornar em 'data' ou 'items'
+      const items = response.data.data || response.data.items || [];
+      const next_cursor = response.data.meta?.next_cursor || response.data.next_cursor;
 
       postsById.value = {};
       postIds.value = [];
 
-      // Usamos (items || []) para garantir que nunca tentaremos dar um forEach em algo nulo
       (items || []).forEach((post: Post) => {
-        const normalizedPost = { ...post, user: post.user || defaultAuthor() };
+        const normalizedPost = {
+          ...post,
+          image_url: formatUrl(post.image_url, false),
+          user: {
+            ...(post.user || defaultAuthor()),
+            avatar: formatUrl(post.user?.avatar, true)
+          }
+        };
         postsById.value[post.id] = normalizedPost;
         postIds.value.push(post.id);
       });
@@ -74,11 +98,20 @@ export const useFeedStore = defineStore('feed', () => {
     try {
       loading.value = true;
       const response = await api.get('/feed', { params: { cursor: nextCursor.value } });
-      const { items, next_cursor } = response.data;
+
+      const items = response.data.data || response.data.items || [];
+      const next_cursor = response.data.meta?.next_cursor || response.data.next_cursor;
 
       (items || []).forEach((post: Post) => {
         if (!postsById.value[post.id]) {
-          const normalizedPost = { ...post, user: post.user || defaultAuthor() };
+          const normalizedPost = {
+            ...post,
+            image_url: formatUrl(post.image_url, false),
+            user: {
+              ...(post.user || defaultAuthor()),
+              avatar: formatUrl(post.user?.avatar, true)
+            }
+          };
           postsById.value[post.id] = normalizedPost;
           postIds.value.push(post.id);
         }
@@ -109,7 +142,7 @@ export const useFeedStore = defineStore('feed', () => {
       if (post.is_liked) {
         await api.post(`/posts/${postId}/like`);
       } else {
-        await api.delete(`/posts/${postId}/unlike`);
+        await api.post(`/posts/${postId}/like`, { _method: 'DELETE' });
       }
     } catch (error) {
       // Rollback se der erro
@@ -145,8 +178,17 @@ export const useFeedStore = defineStore('feed', () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      const newPost = { ...response.data, user: response.data.user || defaultAuthor() };
-      
+      const postData = response.data.data || response.data;
+
+      const newPost = {
+        ...postData,
+        image_url: formatUrl(postData.image_url, false),
+        user: {
+          ...(postData.user || defaultAuthor()),
+          avatar: formatUrl(postData.user?.avatar, true)
+        }
+      };
+
       // Adicionamos o post novo localmente para ele aparecer na hora
       postsById.value[newPost.id] = newPost;
       postIds.value.unshift(newPost.id);

@@ -28,12 +28,12 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 - [x] `POST /auth/register` cria conta e já autentica
 - [x] POST /auth/logout` limpa sessão local mesmo se o token já estiver inválido
 - [x] `GET /auth/me` hidrata o usuario atual a partir do token salvo ao entrar em rota protegida
-- [ ] Servico de autenticacão deve expor apenas endpoints usados pela UI
+- [x] Servico de autenticacão deve expor apenas endpoints usados pela UI
 - [x] Guards de rota:
   - [x] `requiresAuth`: sem token, redireciona para `/login`
   - [x] `requiresGuest`: com token, redireciona para `/feed`
 - [x] Mensagens de erro exibidas inline abaixo do formulario
-- [ ] Código browser-only pode acessar APIs do browser sem guards de SSR desnecessarios
+- [x] Código browser-only pode acessar APIs do browser sem guards de SSR desnecessarios
 
 ## 3 - Layout, Navegacao e Icones
 
@@ -69,8 +69,8 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 5 - Descobrir (`/discover`)
 
-- [ ] `GET /users/suggestions` lista perfis sugeridos
-- [ ] `GET /users/:viewerId/following` carrega quem o viewer ja segue para marcar o estado do botao
+- [x] `GET /users/suggestions` lista perfis sugeridos
+- [x] `GET /users/:viewerId/following` carrega quem o viewer ja segue para marcar o estado do botao
 - [ ] Estado de follow deve vir do store `follows`, nao de Sets locais na view
 - [ ] Store `follows` deve manter `followingIds` e `pendingIds` como `Set`, sempre trocando por um novo `Set` a cada mutacao para preservar reatividade
 - [ ] Botao "Seguir" / "Seguindo" por card:
@@ -159,7 +159,7 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 11 - 404
 
-- [ ] View `NotFound` com link para `/feed` (autenticado) ou `/login` (visitante)
+- [x] View `NotFound` com link para `/feed` (autenticado) ou `/login` (visitante)
 
 ## 12 - Docker e Entrega
 

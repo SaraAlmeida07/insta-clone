@@ -35,7 +35,7 @@ const routes = [
       {
         path: 'discover',
         name: ROUTE_NAMES.DISCOVER,
-        component: () => import('../views/HomeView.vue') // Temporarily reuse HomeView
+        component: () => import('../views/DiscoverView.vue')
       },
       {
         path: 'create',

@@ -70,7 +70,7 @@ const handleComment = async () => {
 
       <!-- Curtidas -->
       <p class="fw-bold mb-1 small text-white">
-        {{ post.likes_count.toLocaleString() }} curtidas
+        {{ (post.likes_count || 0).toLocaleString() }} curtidas
       </p>
 
       <!-- Legenda -->
@@ -81,7 +81,7 @@ const handleComment = async () => {
 
       <!-- Contador de comentários -->
       <RouterLink 
-        v-if="post.comments_count > 0"
+        v-if="(post.comments_count || 0) > 0"
         :to="{ name: ROUTE_NAMES.POST_DETAILS, params: { postId: post.id } }" 
         class="text-grey text-decoration-none small d-block mb-1"
       >
