@@ -219,22 +219,22 @@ const goBack = () => {
 
 <style scoped>
 .edit-profile-view {
-  background-color: #0d1117; /* Fundo bem escuro */
+  background-color: var(--bg-black);
   min-height: 100vh;
 }
 
 .edit-card {
   max-width: 600px;
-  background-color: #161b22; /* Cor do card similar à imagem */
+  background-color: var(--input-bg);
   padding: 2.5rem;
   border-radius: 20px;
-  border: 1px solid #30363d;
+  border: 1px solid var(--input-border);
 }
 
 .btn-back {
-  background-color: #30363d;
+  background-color: var(--input-border);
   border: none;
-  color: white;
+  color: var(--text-white);
   width: 40px;
   height: 40px;
   border-radius: 12px;
@@ -245,20 +245,20 @@ const goBack = () => {
 }
 
 .btn-back:hover {
-  background-color: #484f58;
+  background-color: var(--text-grey);
 }
 
 /* Avatar Section */
 .avatar-section {
-  background-color: #0d1117;
-  border: 1px solid #30363d;
+  background-color: var(--bg-black);
+  border: 1px solid var(--input-border);
 }
 
 .avatar-frame {
   width: 80px;
   height: 80px;
-  border: 2px solid #3d444d;
-  background-color: #161b22;
+  border: 2px solid var(--input-border);
+  background-color: var(--input-bg);
   position: relative;
   overflow: hidden;
 }
@@ -275,29 +275,29 @@ const goBack = () => {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  color: white;
+  color: var(--text-white);
   opacity: 0.6;
 }
 
 /* Form Styles */
 .label-muted {
   font-size: 0.75rem;
-  color: #8b949e;
+  color: var(--text-grey);
   letter-spacing: 0.05em;
 }
 
 .input-wrapper {
-  background-color: #0d1117;
-  border: 1px solid #30363d;
+  background-color: var(--bg-black);
+  border: 1px solid var(--input-border);
   transition: border-color 0.2s;
 }
 
 .input-wrapper:focus-within {
-  border-color: #58a6ff;
+  border-color: var(--primary-blue);
 }
 
 .input-wrapper.has-error {
-  border-color: #f85149;
+  border-color: #f85149; /* Mantido para erro específico, ou use uma nova variável se disponível */
 }
 
 .custom-input {
@@ -308,12 +308,12 @@ const goBack = () => {
 }
 
 .custom-input::placeholder {
-  color: #484f58;
+  color: var(--text-grey);
 }
 
 .counter-text {
   font-size: 0.75rem;
-  color: #484f58;
+  color: var(--text-grey);
 }
 
 .error-msg {
@@ -322,8 +322,8 @@ const goBack = () => {
 
 /* Button Save */
 .btn-save {
-  background-color: #4f46e5; /* Azul/Roxo vibrante */
-  color: white;
+  background-color: var(--primary-blue);
+  color: var(--text-white);
   border: none;
   transition: opacity 0.2s;
 }
