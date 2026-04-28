@@ -45,7 +45,17 @@ const routes = [
       {
         path: 'profile',
         name: ROUTE_NAMES.PROFILE,
-        component: () => import('../views/HomeView.vue') // Temporarily reuse HomeView
+        component: () => import('../views/ProfileView.vue')
+      },
+      {
+        path: 'profile/list/followers',
+        name: ROUTE_NAMES.FOLLOWERS,
+        component: () => import('../views/DiscoverView.vue') // Placeholder
+      },
+      {
+        path: 'profile/list/following',
+        name: ROUTE_NAMES.FOLLOWING,
+        component: () => import('../views/DiscoverView.vue') // Placeholder
       },
       {
         path: 'posts/:postId',

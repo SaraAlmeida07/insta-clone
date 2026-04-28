@@ -7,6 +7,8 @@ export const ROUTE_NAMES = {
   PROFILE: 'profile',
   PROFILE_EDIT: 'profile-edit',
   PROFILE_LIST: 'profile-list',
+  FOLLOWERS: 'followers',
+  FOLLOWING: 'following',
   POST_DETAILS: 'post-details',
   NOT_FOUND: 'not-found'
 };

@@ -102,6 +102,26 @@ export const useFollowsStore = defineStore('follows', () => {
     }
   }
 
+  /**
+   * Verifica via API se o usuário atual segue um usuário específico
+   */
+  async function checkIfFollowing(userId: number) {
+    try {
+      const response = await api.get(`/users/${userId}/is-following`);
+      const isFollowingUser = !!(response.data.following || response.data.data?.following || response.data === true);
+      
+      const newFollowing = new Set(followingIds.value);
+      if (isFollowingUser) {
+        newFollowing.add(userId);
+      } else {
+        newFollowing.delete(userId);
+      }
+      followingIds.value = newFollowing;
+    } catch (error) {
+      console.error('Erro ao verificar seguimento:', error);
+    }
+  }
+
   return {
     followingIds,
     pendingIds,
@@ -110,6 +130,7 @@ export const useFollowsStore = defineStore('follows', () => {
     isPending,
     fetchFollowing,
     follow,
-    unfollow
+    unfollow,
+    checkIfFollowing
   };
 });

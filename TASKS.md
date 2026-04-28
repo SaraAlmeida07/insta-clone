@@ -71,14 +71,14 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 - [x] `GET /users/suggestions` lista perfis sugeridos
 - [x] `GET /users/:viewerId/following` carrega quem o viewer ja segue para marcar o estado do botao
-- [ ] Estado de follow deve vir do store `follows`, nao de Sets locais na view
-- [ ] Store `follows` deve manter `followingIds` e `pendingIds` como `Set`, sempre trocando por um novo `Set` a cada mutacao para preservar reatividade
-- [ ] Botao "Seguir" / "Seguindo" por card:
+- [x] Estado de follow deve vir do store `follows`, nao de Sets locais na view
+- [x] Store `follows` deve manter `followingIds` e `pendingIds` como `Set`, sempre trocando por um novo `Set` a cada mutacao para preservar reatividade
+- [x] Botao "Seguir" / "Seguindo" por card:
   - seguir: `POST /users/:id/follow`
   - deixar de seguir: `DELETE /users/:id/unfollow`
-- [ ] Cards de usuarios devem usar `components/profile/AccountCard.vue`
-- [ ] Clique no card abre `/profile?user=<username>` ou `/profile` se for o proprio
-- [ ] Paginacao por pagina (`?page=<n>`)
+- [x] Cards de usuarios devem usar `components/profile/AccountCard.vue`
+- [x] Clique no card abre `/profile?user=<username>` ou `/profile` se for o proprio
+- [x] Paginacao por pagina (`?page=<n>`)
 
 ## 6 - Criar Post (`/create`)
 
@@ -93,18 +93,18 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 7 - Perfil (`/profile` e `/profile?user=<username>`)
 
-- [ ] `GET /users/{username}` resolve o perfil alvo
-- [ ] Em paralelo, carregar:
-  - `GET /users/{id}/posts` (grid de posts)
-  - `GET /users/{id}/followers` (contador)
-  - `GET /users/{id}/following` (contador)
-- [ ] Para perfis de terceiros, consultar `GET /users/{id}/is-following` para decidir o estado inicial do botao
-- [ ] Acoes de seguir/deixar de seguir devem usar o store `follows`
-- [ ] Acoes:
-  - seguir: `POST /users/:id/follow`
-  - deixar de seguir: `DELETE /users/:id/unfollow`
-- [ ] Botao "Editar perfil" aparece apenas no proprio perfil e leva a `/profile/edit`
-- [ ] Contadores de seguidores e seguindo levam a `/profile/list/followers` e `/profile/list/following` (preservando o `?user=` quando for perfil de terceiros)
+- [x] `GET /users/{username}` resolve o perfil alvo
+- [x] Em paralelo, carregar:
+  - [x] `GET /users/{id}/posts` (grid de posts)
+  - [x] `GET /users/{id}/followers` (contador)
+  - [x] `GET /users/{id}/following` (contador)
+- [x] Para perfis de terceiros, consultar `GET /users/{id}/is-following` para decidir o estado inicial do botao
+- [x] Acoes de seguir/deixar de seguir devem usar o store `follows`
+- [x] Acoes:
+  - [x] seguir: `POST /users/:id/follow`
+  - [x] deixar de seguir: `DELETE /users/:id/unfollow`
+- [x] Botao "Editar perfil" aparece apenas no proprio perfil e leva a `/profile/edit`
+- [x] Contadores de seguidores e seguindo levam a `/profile/list/followers` e `/profile/list/following` (preservando o `?user=` quando for perfil de terceiros)
 - [ ] Grid de posts: clicar em um post abre `/posts/:postId`
 - [ ] `ProfileView` deve delegar UI para `ProfileHeader`, `ProfileSummaryCards` e `ProfilePostGrid`
 
