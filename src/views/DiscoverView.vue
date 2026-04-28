@@ -19,8 +19,20 @@
             v-for="user in discoverStore.suggestions" 
             :key="user.id"
             :user="user"
-            :is-following="followsStore.isFollowing(user.id)"
           />
+
+          <!-- Botão Carregar Mais -->
+          <div v-if="discoverStore.hasMore" class="text-center mt-5 mb-5">
+            <button 
+              @click="handleLoadMore" 
+              class="btn btn-outline-primary btn-sm px-4 rounded-pill"
+              :disabled="discoverStore.loading"
+            >
+              <span v-if="discoverStore.loading" class="spinner-border spinner-border-sm me-1" role="status"></span>
+              <span v-if="discoverStore.loading">Carregando...</span>
+              <span v-else>Carregar mais</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -46,6 +58,10 @@ onMounted(async () => {
     authStore.user?.id ? followsStore.fetchFollowing(authStore.user.id) : Promise.resolve()
   ]);
 });
+
+const handleLoadMore = () => {
+  discoverStore.loadMore();
+};
 </script>
 
 <style scoped>

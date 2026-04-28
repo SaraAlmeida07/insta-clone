@@ -14,11 +14,16 @@
         </div>
       </router-link>
       
+      <!-- Só mostra o botão se não for o próprio usuário logado -->
       <button 
+        v-if="!isMe"
+        @click="handleToggleFollow"
         class="btn btn-sm px-4 rounded-pill fw-bold"
-        :class="isFollowing ? 'btn-outline-secondary' : 'btn-primary'"
+        :class="isCurrentlyFollowing ? 'btn-outline-secondary' : 'btn-primary'"
+        :disabled="followsStore.isPending(user.id)"
       >
-        {{ isFollowing ? 'Seguindo' : 'Seguir' }}
+        <span v-if="followsStore.isPending(user.id)" class="spinner-border spinner-border-sm me-1" role="status"></span>
+        {{ isCurrentlyFollowing ? 'Seguindo' : 'Seguir' }}
       </button>
     </div>
   </div>
@@ -27,6 +32,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useFollowsStore } from '@/stores/follows';
 
 interface User {
   id: number;
@@ -37,17 +43,28 @@ interface User {
 
 const props = defineProps<{
   user: User;
-  isFollowing: boolean;
 }>();
 
 const authStore = useAuthStore();
+const followsStore = useFollowsStore();
+
+const isMe = computed(() => authStore.user?.id === props.user.id);
+const isCurrentlyFollowing = computed(() => followsStore.isFollowing(props.user.id));
 
 const profileLink = computed(() => {
-  if (authStore.user?.id === props.user.id) {
+  if (isMe.value) {
     return { name: 'profile' };
   }
   return { name: 'profile', query: { user: props.user.username } };
 });
+
+const handleToggleFollow = async () => {
+  if (isCurrentlyFollowing.value) {
+    await followsStore.unfollow(props.user.id);
+  } else {
+    await followsStore.follow(props.user.id);
+  }
+};
 </script>
 
 <style scoped>
