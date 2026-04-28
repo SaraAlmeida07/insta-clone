@@ -48,6 +48,11 @@ const routes = [
         component: () => import('../views/ProfileView.vue')
       },
       {
+        path: 'profile/edit',
+        name: ROUTE_NAMES.PROFILE_EDIT,
+        component: () => import('../views/EditProfileView.vue')
+      },
+      {
         path: 'profile/list/followers',
         name: ROUTE_NAMES.FOLLOWERS,
         component: () => import('../views/DiscoverView.vue') // Placeholder

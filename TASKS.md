@@ -110,16 +110,16 @@ Lista de tarefas para reconstruir o frontend. Cada item descreve comportamento e
 
 ## 7.1 - Editar Perfil (`/profile/edit`)
 
-- [ ] `PUT /users/me` com `{ name, username, bio }`
-- [ ] `POST /users/me/avatar` com `FormData` contendo `avatar`
-- [ ] Limites validados no cliente:
-  - `name`: 255 caracteres
-  - `username`: 30 caracteres, regex `^[A-Za-z0-9._]+$`
-  - `bio`: 500 caracteres
-  - avatar: 2 MB
-- [ ] Constantes `PROFILE_*_MAX_LENGTH` devem viver em `stores/profileUtils.js`
-- [ ] Logica de upload/preview/cleanup do avatar deve usar `composables/useImageUpload.js`
-- [ ] Mensagens de erro por campo vindas do backend
+- [x] `PUT /users/me` com `{ name, username, bio }`
+- [x] `POST /users/me/avatar` com `FormData` contendo `avatar`
+- [x] Limites validados no cliente:
+  - [x] `name`: 255 caracteres
+  - [x] `username`: 30 caracteres, regex `^[A-Za-z0-9._]+$`
+  - [x] `bio`: 500 caracteres
+  - [x] avatar: 2 MB
+- [x] Constantes `PROFILE_*_MAX_LENGTH` devem viver em `stores/profileUtils.ts`
+- [x] Logica de upload/preview/cleanup do avatar deve usar `composables/useImageUpload.js`
+- [x] Mensagens de erro por campo vindas do backend
 
 ## 8 - Listas de Conexao (`/profile/list/:type`)
 
