@@ -41,7 +41,7 @@ const handlePublish = async () => {
     if (err.response?.status === 422 && err.response?.data?.errors) {
       // Se for erro de validação, pega a primeira mensagem do primeiro campo
       const firstErrorField = Object.values(err.response.data.errors)[0] as string[];
-      serverError.value = firstErrorField[0];
+      serverError.value = firstErrorField[0] || 'Erro de validação';
     } else {
       serverError.value = err.response?.data?.message || 'Ocorreu um erro ao publicar. Tente novamente.';
     }
