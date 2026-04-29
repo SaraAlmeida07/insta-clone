@@ -10,12 +10,12 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('instaclone.user') || 'null'));
   const token = ref(localStorage.getItem('instaclone.token') || null);
 
-  // --- GETTERS (Computed) ---
+  
   // isAuthenticated será verdadeiro se houver um token
   const isAuthenticated = computed(() => !!token.value);
   
   
-  // Função para fazer login
+  
   async function login(credentials: any) {
     try {
       const response = await api.post('/auth/login', credentials);
@@ -35,13 +35,12 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  // Função para registrar um novo usuário
+  
   async function register(userData: any) {
     try {
       const response = await api.post('/auth/register', userData);
       const { access_token, user: newUser } = response.data;
 
-      // No InstaClone, ao registrar já logamos o usuário
       token.value = access_token;
       user.value = newUser;
 
