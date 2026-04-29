@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-3 border-0 shadow-sm">
     <div class="card-body d-flex align-items-center">
-      <router-link :to="profileLink" class="text-decoration-none d-flex align-items-center flex-grow-1 text-dark">
+      <router-link :to="profileLink" class="text-decoration-none d-flex align-items-center flex-grow-1 text-white">
         <img 
           :src="user.avatar" 
           alt="Avatar" 
@@ -9,8 +9,8 @@
           style="width: 50px; height: 50px; object-fit: cover;"
         />
         <div class="flex-grow-1">
-          <h6 class="mb-0 fw-bold">{{ user.username }}</h6>
-          <small class="text-muted">{{ user.name }}</small>
+          <h6 class="mb-0 fw-bold text-white">{{ user.username }}</h6>
+          <small class="text-white-50">{{ user.name }}</small>
         </div>
       </router-link>
       
