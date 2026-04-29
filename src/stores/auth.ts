@@ -5,8 +5,7 @@ import router from '../router';
 import { ROUTE_NAMES } from '../router/routeNames';
 
 export const useAuthStore = defineStore('auth', () => {
-  // --- ESTADO (State) ---
-  // Armazenamos o usuário e o token. 
+ 
   // Tentamos carregar do localStorage para manter a sessão ao atualizar a página.
   const user = ref(JSON.parse(localStorage.getItem('instaclone.user') || 'null'));
   const token = ref(localStorage.getItem('instaclone.token') || null);
@@ -14,8 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
   // --- GETTERS (Computed) ---
   // isAuthenticated será verdadeiro se houver um token
   const isAuthenticated = computed(() => !!token.value);
-
-  // --- AÇÕES (Actions) ---
+  
   
   // Função para fazer login
   async function login(credentials: any) {
@@ -23,11 +21,11 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await api.post('/auth/login', credentials);
       const { access_token, user: userData } = response.data;
 
-      // Salva no estado da store
+      
       token.value = access_token;
       user.value = userData;
 
-      // Salva no navegador para persistência
+      
       localStorage.setItem('instaclone.token', access_token);
       localStorage.setItem('instaclone.user', JSON.stringify(userData));
 
@@ -56,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  // Função para deslogar
+  
   async function logout() {
     try {
       await api.post('/auth/logout');

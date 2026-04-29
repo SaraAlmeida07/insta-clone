@@ -36,8 +36,15 @@ const handlePublish = async () => {
     // Sucesso! Voltamos para o Feed
     router.push({ name: ROUTE_NAMES.FEED });
   } catch (err: any) {
-    console.error('Erro ao publicar:', err);
-    serverError.value = err.response?.data?.message || 'Ocorreu um erro ao publicar. Tente novamente.';
+    console.error('Erro ao publicar:', err.response?.data || err);
+    
+    if (err.response?.status === 422 && err.response?.data?.errors) {
+      // Se for erro de validação, pega a primeira mensagem do primeiro campo
+      const firstErrorField = Object.values(err.response.data.errors)[0] as string[];
+      serverError.value = firstErrorField[0];
+    } else {
+      serverError.value = err.response?.data?.message || 'Ocorreu um erro ao publicar. Tente novamente.';
+    }
   } finally {
     isSubmitting.value = false;
   }

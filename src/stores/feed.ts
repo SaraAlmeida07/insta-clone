@@ -60,23 +60,14 @@ export const useFeedStore = defineStore('feed', () => {
       loading.value = true;
       const response = await api.get('/feed');
 
-      // O Laravel pode retornar em 'data' ou 'items'
-      const items = response.data.data || response.data.items || [];
-      const next_cursor = response.data.meta?.next_cursor || response.data.next_cursor;
+      const items = response.data.data || [];
+      const next_cursor = response.data.meta?.next_cursor;
 
       postsById.value = {};
       postIds.value = [];
 
       (items || []).forEach((post: Post) => {
-        const normalizedPost = {
-          ...post,
-          image_url: formatUrl(post.image_url, false),
-          user: {
-            ...(post.user || defaultAuthor()),
-            avatar: formatUrl(post.user?.avatar, true)
-          }
-        };
-        postsById.value[post.id] = normalizedPost;
+        postsById.value[post.id] = normalizePost(post);
         postIds.value.push(post.id);
       });
 
@@ -99,20 +90,12 @@ export const useFeedStore = defineStore('feed', () => {
       loading.value = true;
       const response = await api.get('/feed', { params: { cursor: nextCursor.value } });
 
-      const items = response.data.data || response.data.items || [];
-      const next_cursor = response.data.meta?.next_cursor || response.data.next_cursor;
+      const items = response.data.data || [];
+      const next_cursor = response.data.meta?.next_cursor;
 
       (items || []).forEach((post: Post) => {
         if (!postsById.value[post.id]) {
-          const normalizedPost = {
-            ...post,
-            image_url: formatUrl(post.image_url, false),
-            user: {
-              ...(post.user || defaultAuthor()),
-              avatar: formatUrl(post.user?.avatar, true)
-            }
-          };
-          postsById.value[post.id] = normalizedPost;
+          postsById.value[post.id] = normalizePost(post);
           postIds.value.push(post.id);
         }
       });
@@ -169,25 +152,27 @@ export const useFeedStore = defineStore('feed', () => {
     }
   }
 
+  function normalizePost(post: any): Post {
+  return {
+    ...post,
+    image_url: formatUrl(post.image_url, false),
+    user: {
+      ...(post.user || defaultAuthor()),
+      avatar: formatUrl(post.user?.avatar, true)
+    }
+  };
+  }
+
   /**
    * Cria um novo post
    */
   async function createPost(formData: FormData) {
     try {
-      const response = await api.post('/posts', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      const response = await api.post('/posts', formData);
 
       const postData = response.data.data || response.data;
 
-      const newPost = {
-        ...postData,
-        image_url: formatUrl(postData.image_url, false),
-        user: {
-          ...(postData.user || defaultAuthor()),
-          avatar: formatUrl(postData.user?.avatar, true)
-        }
-      };
+      const newPost = normalizePost(postData);
 
       // Adicionamos o post novo localmente para ele aparecer na hora
       postsById.value[newPost.id] = newPost;
